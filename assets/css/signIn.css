@@ -1,0 +1,17 @@
+#mainContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#signInForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    height: 50vh;
+    background-color: rgb(171, 171, 175);
+}
+.signInFormItems{
+    width: 80%;
+}

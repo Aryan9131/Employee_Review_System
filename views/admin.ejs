@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="/css/home.css">
+<div class="col-12" id="allUsers">
+    <%for(registerUser of registerUsers){%>
+       <% if(registerUser.email!=user.email || registerUser.profile!="admin"){%>
+            <div class="card w-25 bg-light m-3">
+                <div class="card-body">
+                    <form action="/users/assign-feedback" method="post">
+                        <h5 class="card-title">User : <%=registerUser.name%>
+                        </h5>
+                        <p class="card-text">User Profile :- <%=registerUser.profile%>
+                        </p>
+                        <input type="hidden" name="assignedTo" value="<%=registerUser.name%>">
+                        <%if(registerUser.profile!="admin"){%>
+                            <select class="form-select" aria-label="Default select example" name="assignedOf">
+                                <option selected>Select to Assign</option>
+                                <%for(option of registerUsers){%>
+                                    <%if(option.email!=registerUser.email && option.profile!="admin" ){%>
+                                        <option>
+                                            <%=option.name%>
+                                        </option>
+                                        <%}%>
+                                            <%}%>
+                            </select>
+                            <button type="submit" class="btn btn-outline-primary mt-2">Assign</button>
+                        <%}%>
+                    </form>
+                    <a href="/users/delete-user/<%=registerUser._id%>" class="btn btn btn-outline-danger mt-2">Delete</a>
+                </div>
+            </div>
+         <%}%>
+        <%}%>
+</div>

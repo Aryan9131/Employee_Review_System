@@ -1,0 +1,34 @@
+ <link rel="stylesheet" href="/css/home.css">
+
+    <div class="col-md-6">
+        <h3><u>Feedbacks</u> :-</h3>
+        <%if(locals.user){%>
+            <%if(feedbacks.length==0){%>
+                <p><b>No feedbacks .</b></p>
+            <%}%>
+            <ul>
+                <%for(feedback of feedbacks){%>
+                   <li class="m-3">
+                    <small><b>Sent By :-</b> <%=feedback.feedbackFromUser%></small><br>
+                    <p><b>Feedback :-</b> <%=feedback.feedbackData%></p> 
+                   </li>
+                <%}%>
+            </ul>
+            
+        <%}%>
+    </div>
+    <div class="col-md-6">
+        <h3><u>Assigned Feedbacks</u> :-</h3>
+        <%if(locals.user){%>
+            <%if(assignFeeds.length==0){%>
+                <p><b>No feedbacks Assigned.</b></p>
+            <%}%>
+            <%for(assign of assignFeeds){%>
+            <form action="/users/create-feedback" method="post">
+             <input type="text" class="feedForm" name="toUser" placeholder="user's name to send" value="<%=assign.feedbackToUserName%>" readonly ><br>
+             <textarea class="feedForm" name="feedback" cols="35" rows="6" placeholder="feedback"></textarea>
+             <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          <%}%>
+          <%}%>
+    </div>

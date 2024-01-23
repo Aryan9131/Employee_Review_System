@@ -1,0 +1,28 @@
+
+     <link rel="stylesheet" href="/css/signIn.css">
+            <div class="col-12" id="mainContent">
+                <form action="/users/create-user" method="post" id="signInForm">
+                    <div class="form-floating mb-3 signInFormItems">
+                        <input type="text" class="form-control " id="floatingInput" name="name" >
+                        <label for="floatingInput">Name</label>
+                    </div>
+                    <div class="form-floating mb-3 signInFormItems">
+                        <input type="email" class="form-control " id="floatingInput" name="email" >
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="mb-3 signInFormItems">
+                        <select class="form-select " aria-label="Default select example" name="profile">
+                            <option selected>Select Profile</option>
+                            <option value="employee">Employee</option>
+                            <option value="admin">Admin</option>
+                          </select>
+                    </div>
+                    <div class="form-floating signInFormItems">
+                        <input type="password" class="form-control " id="floatingPassword" name="password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">SignUp</button>
+                </form>
+            </div>
+
+    

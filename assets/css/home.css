@@ -1,0 +1,11 @@
+#allUsers{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.feedForm{
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 5px;
+}
