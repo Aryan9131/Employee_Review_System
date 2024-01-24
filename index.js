@@ -7,9 +7,7 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo');
-const dotenv = require('dotenv');
-// Load environment variables from .env file
-dotenv.config();
+require('dotenv').config();
 const DB_URL=process.env.DATABASE_URL;
 const SECRET_KEY=process.env.SECRET_KEY;
 
