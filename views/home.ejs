@@ -1,34 +1,47 @@
- <link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/home.css">
 
-    <div class="col-md-6">
-        <h3><u>Feedbacks</u> :-</h3>
-        <%if(locals.user){%>
-            <%if(feedbacks.length==0){%>
-                <p><b>No feedbacks .</b></p>
+<div class="col-md-6">
+    <h3><u>Feedbacks</u> :-</h3>
+    <%if(locals.user){%>
+        <%if(feedbacks.length==0){%>
+            <p><b>No feedbacks .</b></p>
             <%}%>
-            <ul>
-                <%for(feedback of feedbacks){%>
-                   <li class="m-3">
-                    <small><b>Sent By :-</b> <%=feedback.feedbackFromUser%></small><br>
-                    <p><b>Feedback :-</b> <%=feedback.feedbackData%></p> 
-                   </li>
+                <ul>
+                    <%for(feedback of feedbacks){%>
+                        <li class="m-3">
+                            <small><b>Sent By :-</b>
+                                <%=feedback.feedbackFromUser.name%>
+                            </small><br>
+                            <p><b>Feedback :-</b>
+                                <%=feedback.feedbackData%>
+                            </p>
+                        </li>
+                        <%}%>
+                </ul>
+
                 <%}%>
-            </ul>
-            
-        <%}%>
-    </div>
-    <div class="col-md-6">
-        <h3><u>Assigned Feedbacks</u> :-</h3>
-        <%if(locals.user){%>
-            <%if(assignFeeds.length==0){%>
-                <p><b>No feedbacks Assigned.</b></p>
+</div>
+<div class="col-md-6">
+    <h3><u>Assigned Feedbacks</u> :-</h3>
+    <%if(locals.user){%>
+        <%if(assignFeeds.length==0){%>
+            <p><b>No feedbacks Assigned.</b></p>
             <%}%>
-            <%for(assign of assignFeeds){%>
-            <form action="/users/create-feedback" method="post">
-             <input type="text" class="feedForm" name="toUser" placeholder="user's name to send" value="<%=assign.feedbackToUserName%>" readonly ><br>
-             <textarea class="feedForm" name="feedback" cols="35" rows="6" placeholder="feedback"></textarea>
-             <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          <%}%>
-          <%}%>
-    </div>
+                <%for(assign of assignFeeds){%>
+                    <form action="/users/create-feedback" method="post">
+                        <!-- Show the name of the user, but send the ObjectId as the value -->
+                        <input type="text" class="feedForm" name="toUser" value="<%= assign.feedbackToUserName._id %>"
+                            placeholder="<%= assign.feedbackToUserName.name %>" readonly style="display: none;">
+                        <!-- This hides the input from the user -->
+
+                        <!-- Show the name to the user but make it readonly -->
+                        <input type="text" class="feedForm" value="<%= assign.feedbackToUserName.name %>" readonly><br>
+
+                        <!-- Textarea for feedback -->
+                        <textarea class="feedForm" name="feedback" cols="35" rows="6" style="max-height:250px; min-height:50px;" placeholder="feedback"></textarea>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    <%}%>
+                        <%}%>
+</div>

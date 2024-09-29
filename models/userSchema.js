@@ -12,7 +12,14 @@ const userSchema=new mongoose.Schema({
     },
     profile:{
         type:String
-    }  
+    },
+    assignFeedBacksToUser:[
+        {
+            type:mongoose.Schema.ObjectId,
+            ref:"AssignFeeds"
+        }
+    ]
+
 })
 
 const User=mongoose.model('User', userSchema);

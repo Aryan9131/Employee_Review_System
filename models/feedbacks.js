@@ -2,10 +2,12 @@ const mongoose=require('mongoose');
 
 const feedbackSchema=new mongoose.Schema({
     feedbackFromUser:{
-        type:String
+         type:mongoose.SchemaTypes.ObjectId,
+         ref:"User"
     },
     feedbackToUser:{
-        type:String
+         type:mongoose.SchemaTypes.ObjectId,
+         ref:"User"
     },
     feedbackData:{
         type:String

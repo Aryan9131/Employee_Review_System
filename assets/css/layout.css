@@ -7,6 +7,9 @@
     margin: 0;
 
 }
+#navItems{
+    display: flex;
+}
 #navLinks{
     display: flex;
     flex-direction: row;
@@ -40,4 +43,21 @@
    background-color: rgb(158, 158, 158);
    border-radius: 20px;
 
+}
+#cardLastRow{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+@media screen and (max-width: 800px) {
+    #navItems {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #collapsedIconContainer {
+        width: 100%;
+    }
 }

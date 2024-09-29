@@ -1,23 +1,39 @@
 const passport=require('passport');
 const LocalStrategy=require('passport-local').Strategy;
 const User=require('../models/userSchema');
+const bcrypt = require('bcrypt'); // Ensure bcrypt is installed and required
+
 passport.use(new LocalStrategy({
     usernameField: 'email'
 },
-    async function(email, password, done){
-        try {
-            const user = await User.findOne({ email: email });
-             if (!user || user.password != password) {
-            console.log("Passport-Local : Invalid Username/Password user");
-            return done(null, false);
-         } else {
-            return done(null, user);
-         }
-        } catch (error) {
-            console.log("Error while authenticate user **passport** : "+error);
-            return done(error);
-        }
-    }
+async function (email, password, done) {
+   try {
+       console.log("Authenticating user:", email +" password->"+password); // Log the email
+       const user = await User.findOne({ email: email });
+       console.log("User found:", user); // Log user found
+
+       if (!user) {
+           console.log("No user found with that email");
+           return done(null, false, { message: "Invalid Username/Password" });
+       }
+
+       // Assuming you're using bcrypt to hash passwords
+       const isMatch =(password==user.password);
+       console.log("Password match ->" + isMatch+ " "+ (password==user.password)+" typeofPassword->"+typeof password +"  "+typeof user.password +" "+password+" "+user.password); // Log password match status
+       
+       if (!isMatch) {
+           console.log("Incorrect password");
+           return done(null, false, { message: "Invalid Username/Password" });
+       }
+
+       return done(null, user);
+   } catch (error) {
+       console.error("Error during authentication:", error);
+       return done(error);
+   }
+}
+
+
 ))
 
 

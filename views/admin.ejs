@@ -2,31 +2,61 @@
 <div class="col-12" id="allUsers">
     <%for(registerUser of registerUsers){%>
        <% if(registerUser.email!=user.email || registerUser.profile!="admin"){%>
-            <div class="card w-25 bg-light m-3">
+            <div class="card w-25 bg-light m-3" id="<%=registerUser.name%>" style="min-width: 200px">
                 <div class="card-body">
                     <form action="/users/assign-feedback" method="post">
-                        <h5 class="card-title">User : <%=registerUser.name%>
-                        </h5>
-                        <p class="card-text">User Profile :- <%=registerUser.profile%>
-                        </p>
-                        <input type="hidden" name="assignedTo" value="<%=registerUser.name%>">
+                        <h5 class="card-title">User : <%=registerUser.name%></h5>
+                        <p class="card-text">User Profile :- <%=registerUser.profile%></p>
+                        <input type="hidden" name="assignedTo" value="<%=registerUser._id%>">
                         <%if(registerUser.profile!="admin"){%>
                             <select class="form-select" aria-label="Default select example" name="assignedOf">
                                 <option selected>Select to Assign</option>
                                 <%for(option of registerUsers){%>
-                                    <%if(option.email!=registerUser.email && option.profile!="admin" ){%>
-                                        <option>
-                                            <%=option.name%>
-                                        </option>
-                                        <%}%>
-                                            <%}%>
+                                    <%if(option.email != registerUser.email && option.profile != "admin"){%>
+                                        <option value="<%=option._id %>"><%=option.name%></option>
+                                    <%}%>
+                                <%}%>
                             </select>
                             <button type="submit" class="btn btn-outline-primary mt-2">Assign</button>
                         <%}%>
                     </form>
-                    <a href="/users/delete-user/<%=registerUser._id%>" class="btn btn btn-outline-danger mt-2">Delete</a>
+                    <div id="cardLastRow">
+                        <a href="/users/delete-user/<%=registerUser._id%>" class="btn btn-outline-danger mt-2">Delete</a>
+                        <%if(registerUser.profile!="admin"){%>
+                            <button class="btn btn-outline-info mt-2" data-bs-toggle="modal" data-bs-target="#feedbackModal<%=registerUser._id%>"  title="Total assigned user">
+                                <%=registerUser.assignFeedBacksToUser.length%> 
+                            </button>
+                        <%}%>
+                    </div>
                 </div>
             </div>
-         <%}%>
+
+            <!-- Modal for displaying assigned users -->
+            <div class="modal fade" id="feedbackModal<%=registerUser._id%>" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="feedbackModalLabel">Assigned Users for <%=registerUser.name%></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <ul>
+                                <%if(registerUser.assignFeedBacksToUser.length > 0){%>
+                                    <%registerUser.assignFeedBacksToUser.forEach(feedback => { %>
+                                        <li> <%=feedback.feedbackToUserName.name%> is Assigned to : <%=feedback.assignUserName.name%></li>
+                                    <% }) %>
+                                <%} else {%>
+                                    <li>No assigned feedbacks yet</li>
+                                <%}%>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <%}%>
+    <%}%>
 </div>

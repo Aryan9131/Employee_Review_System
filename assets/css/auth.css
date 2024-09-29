@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
 }
-#signInForm{
+#form{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,6 +12,18 @@
     height: 50vh;
     background-color: rgb(171, 171, 175);
 }
-.signInFormItems{
+.formItems{
     width: 80%;
+}
+@media screen and (max-width: 800px) {
+    #form {
+        width: 100vw;
+        height: 50vh;
+    }
+    .formItems{
+        width: 95%;
+    }
+    #floatingInput{
+        padding:30px;
+    }
 }
